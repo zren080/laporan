@@ -1,6 +1,31 @@
 from . import Database
 from .Util import random_string
 import time
+import os
+
+
+
+def delete(no_buku):
+    try:
+        with open(Database.DB_NAME,'r') as file:
+            counter = 0 
+            while(True):
+                content = file.readline()
+                if len(content) == 0:
+                    break
+                elif counter == no_buku - 1:
+                    pass
+                else:
+                    with open('data_temp.txt','a',encoding='utf-8') as temp_file:
+                        temp_file.write(content)
+                
+                counter += 1
+
+    except:
+        print('Database error')
+
+    os.rename('data_temp.txt',Database.DB_NAME)
+    
 
 def update(pk,date_add,judul,penulis,no_buku,tahun):
     data = Database.TEMPLATE.copy()
@@ -26,8 +51,8 @@ def create(judul,penulis,tahun):
 
     data['pk'] = random_string(6)
     data['date_add'] = time.strftime('%Y-%m-%d') 
-    data['judul'] = judul + Database.TEMPLATE["judul"]
-    data['penulis'] = penulis + Database.TEMPLATE["penulis"]
+    data['judul'] = judul + Database.TEMPLATE["judul"][len(judul):]
+    data['penulis'] = penulis + Database.TEMPLATE["penulis"][len(penulis):]
     data['tahun'] = str(tahun)
 
     data_str = f"{data['pk']},{data['date_add']},{data['judul']},{data['penulis']},{data['tahun']}\n"
@@ -74,8 +99,8 @@ def create_frist_data():
 
     data['pk'] = random_string(6)
     data['date_add'] = time.strftime('%Y-%m-%d') 
-    data['judul'] = judul + Database.TEMPLATE["judul"]
-    data['penulis'] = penulis + Database.TEMPLATE["penulis"]
+    data['judul'] = judul + Database.TEMPLATE["judul"][len(judul):]
+    data['penulis'] = penulis + Database.TEMPLATE["penulis"][len(penulis):]
     data['tahun'] = str(tahun)
 
     data_str = f"{data['pk']},{data['date_add']},{data['judul']},{data['penulis']},{data['tahun']}\n"

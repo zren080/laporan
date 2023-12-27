@@ -1,5 +1,40 @@
 from . import Operasi
-from . import Database
+
+# Delete Data
+def delete_console():
+    read_console()
+    print('Silahkan masukan no buku yang akan di delete')
+    while(True):
+        no_buku = int(input('pilih no buku : '))
+        data_buku = Operasi.read(index=no_buku)
+        
+
+        if data_buku:
+            break
+        else:
+            print('nomor tidak valid')
+    while(True):
+        if data_buku:
+            data_break = data_buku.split(",")                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+            pk = data_break[0]
+            date_add = data_break[1]
+            judul = data_break[2]
+            penulis = data_break[3]
+            tahun = data_break[4][:-1]
+
+            print('-'*100+'\n')
+            print(f'1.judul   : {judul:.40}')
+            print(f'2.penulis : {penulis:.40}')
+            print(f'3.tahun   : {tahun:4}')
+        
+            is_done = input('Apakah Yakin Di Hapus (y/n)? : ')
+            if is_done == 'y' or is_done == 'Y':
+                Operasi.delete(no_buku)
+                break
+        else:
+            print('Data Berhasil Di hapus')
+
+
 
 # Update Data
 def update_console():
@@ -50,8 +85,6 @@ def update_console():
             break
 
     Operasi.update(pk,date_add,judul,penulis,no_buku,tahun)
-
-        
 
 # Create Data
 def create_console():
