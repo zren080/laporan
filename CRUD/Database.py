@@ -5,9 +5,9 @@ DB_NAME = 'data.txt'
 TEMPLATE = {
     'pk':'XXXXXX',
     'date_add':'yyyy-mm-dd',
-    'judul':255*" ",
-    'penulis':255*" ",
-    'tahun':'yyyy'
+    'nama':255*" ",
+    'alamat':255*" ",
+    'nik':'16'
 }
 
 def init_console():

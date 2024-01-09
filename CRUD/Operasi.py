@@ -2,9 +2,31 @@ from . import Database
 from .Util import random_string
 import time
 import os
+import string
 
+def read_nik(input_nik):
+   try:
+        with open(Database.DB_NAME,'r') as file:
+            while(True):
+                content = file.readline()
+                if content == input_nik:
+                    with open(Database.DB_NAME,'r') as file:
+                        file.read()   
+                elif content != input_nik:
+                    continue
+                
+                
+                return content
+                
+                        
+            
+                
 
-
+            
+   except:
+       print('Gagal Membaca Data')
+       return False
+    
 def delete(no_buku):
     try:
         with open(Database.DB_NAME,'r') as file:
@@ -27,16 +49,16 @@ def delete(no_buku):
     os.rename('data_temp.txt',Database.DB_NAME)
     
 
-def update(pk,date_add,judul,penulis,no_buku,tahun):
+def update(pk,date_add,nama,alamat,no_buku,nik):
     data = Database.TEMPLATE.copy()
 
     data['pk'] = pk
     data['date_add'] = date_add 
-    data['judul'] = judul + Database.TEMPLATE["judul"][len(judul):]
-    data['penulis'] = penulis + Database.TEMPLATE["penulis"][len(penulis):]
-    data['tahun'] = str(tahun)
+    data['nama'] = nama + Database.TEMPLATE["nama"][len(nama):]
+    data['alamat'] = alamat + Database.TEMPLATE["alamat"][len(alamat):]
+    data['nik'] = str(nik)
 
-    data_str = f"{data['pk']},{data['date_add']},{data['judul']},{data['penulis']},{data['tahun']}\n"
+    data_str = f"{data['pk']},{data['date_add']},{data['nama']},{data['alamat']},{data['nik']}\n"
     panjang_data = len(data_str)
     try:
         with open(Database.DB_NAME,'r+',encoding='utf-8') as file:
@@ -46,16 +68,16 @@ def update(pk,date_add,judul,penulis,no_buku,tahun):
         print('error dalam update data')
 
 # Create Data
-def create(judul,penulis,tahun):
+def create(nama,alamat,nik):
     data = Database.TEMPLATE.copy()
 
     data['pk'] = random_string(6)
     data['date_add'] = time.strftime('%Y-%m-%d') 
-    data['judul'] = judul + Database.TEMPLATE["judul"][len(judul):]
-    data['penulis'] = penulis + Database.TEMPLATE["penulis"][len(penulis):]
-    data['tahun'] = str(tahun)
+    data['nama'] = nama + Database.TEMPLATE["nama"][len(nama):]
+    data['alamat'] = alamat + Database.TEMPLATE["alamat"][len(alamat):]
+    data['nik'] = str(nik)
 
-    data_str = f"{data['pk']},{data['date_add']},{data['judul']},{data['penulis']},{data['tahun']}\n"
+    data_str = f"{data['pk']},{data['date_add']},{data['nama']},{data['alamat']},{data['nik']}\n"
 
     try:
         with open(Database.DB_NAME,'a',encoding='utf-8') as file:
@@ -83,27 +105,27 @@ def read(**kwargs):
 
 # Frist Data
 def create_frist_data():
-    judul = input('judul : ')
-    penulis = input('penulis : ') 
+    nama = input('nama : ')
+    alamat = input('alamat : ') 
     while(True):
         try:
-            tahun = int(input("Tahun\t: "))
-            if len(str(tahun)) == 4:
+            nik = int(input("nik\t: "))
+            if len(str(nik)) == 16:
                 break
             else:
-                print("tahun tidak boleh ±, masukan lagi")    
+                print("nik tidak boleh ±, masukan lagi")    
         except:
-            print("tahun harus angka, silahkan masukan tahun lagi")
+            print("nik harus angka, silahkan masukan nik lagi")
 
     data = Database.TEMPLATE.copy()
 
     data['pk'] = random_string(6)
     data['date_add'] = time.strftime('%Y-%m-%d') 
-    data['judul'] = judul + Database.TEMPLATE["judul"][len(judul):]
-    data['penulis'] = penulis + Database.TEMPLATE["penulis"][len(penulis):]
-    data['tahun'] = str(tahun)
+    data['nama'] = nama + Database.TEMPLATE["nama"][len(nama):]
+    data['alamat'] = alamat + Database.TEMPLATE["alamat"][len(alamat):]
+    data['nik'] = str(nik)
 
-    data_str = f"{data['pk']},{data['date_add']},{data['judul']},{data['penulis']},{data['tahun']}\n"
+    data_str = f"{data['pk']},{data['date_add']},{data['nama']},{data['alamat']},{data['nik']}\n"
     print(data_str)
 
     try:
@@ -111,7 +133,3 @@ def create_frist_data():
             file.write(data_str)
     except:
         print('hayyyy yukkkkkk')
-
-
-
-    
