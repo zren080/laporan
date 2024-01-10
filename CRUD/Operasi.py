@@ -5,28 +5,20 @@ import os
 import string
 
 def read_nik(input_nik):
-   try:
+    try:
         with open(Database.DB_NAME,'r') as file:
             while(True):
-                content = file.readline()
-                if content == input_nik:
-                    with open(Database.DB_NAME,'r') as file:
-                        file.read()   
-                elif content != input_nik:
-                    continue
-                
-                
+                content = False
+                while (content != input_nik):
+                    content = file.readline()
+                    if (content == input_nik):
+                        break
                 return content
-                
-                        
-            
-                
 
-            
-   except:
-       print('Gagal Membaca Data')
-       return False
-    
+    except:
+        print('Database error')
+        return False
+
 def delete(no_buku):
     try:
         with open(Database.DB_NAME,'r') as file:
