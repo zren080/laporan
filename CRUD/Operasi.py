@@ -2,22 +2,6 @@ from . import Database
 from .Util import random_string
 import time
 import os
-import string
-
-def read_nik(input_nik):
-    try:
-        with open(Database.DB_NAME,'r') as file:
-            while(True):
-                content = False
-                while (content != input_nik):
-                    content = file.readline()
-                    if (content == input_nik):
-                        break
-                return content
-
-    except:
-        print('Database error')
-        return False
 
 def delete(no_buku):
     try:

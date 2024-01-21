@@ -1,37 +1,5 @@
 from . import Operasi
 
-def find_console():
-    while(True):
-        input_nik = int(input('Silahkan masukan nik : '))
-        data_nik = Operasi.read_nik(input_nik)
-        
-        if data_nik:
-            break
-        else:
-            print('nik tidak valid')
-    while(True):
-        if data_nik:
-            data_break = data_nik.split(",")                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-            pk = data_break[0]
-            date_add = data_break[1]
-            nama = data_break[2]
-            alamat = data_break[3]
-            nik = data_break[4][:-1]
-
-            print('-'*100+'\n')
-            print(f'1.nama   : {nama:.40}')
-            print(f'2.alamat : {alamat:.40}')
-            print(f'3.nik   : {nik:16}')
-
-            is_done = input('Sudah Siap(y/n)? : ')
-            if is_done == 'y' or is_done == 'Y':
-                break
-        
-        else:
-            print('Data Berhasil Di baca')
-
-
-
 # Delete Data
 def delete_console():
     read_console()
@@ -148,9 +116,9 @@ def read_console():
     nik = 'nik'
 
     # Header
-    print('='*100)
+    print('='*109)
     print(f'{index:^4} | {nama:^40} | {alamat:^40} | {nik:^16}')
-    print('-'*100+'\n')
+    print('-'*109+'\n')
 
     # Body
     for index,data in enumerate(data_file):
@@ -164,7 +132,7 @@ def read_console():
 
 
     # Flooer
-    print('\n'+'='*100)
+    print('\n'+'='*109)
         
 
     
